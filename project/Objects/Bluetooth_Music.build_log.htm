@@ -1,0 +1,81 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.36.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: henry wu2 TTI Flex license: MDK Professional 5.36 (Flex): 11 user(s) (mdk_pro) Support: Sep 2024
+ 
+Tool Versions:
+Toolchain:       MDK Professional 5.36 (Flex): 11 user(s)  Version: 5.36.0.0
+Toolchain Path:  D:\keil536\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.36.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      CMSIS_AGDI.dll V1.33.0.0
+Dialog DLL:      TCM.DLL V1.53.0.0
+ 
+<h2>Project:</h2>
+D:\5.HelpDoc(Software)\study\TI Bluetooth\Mine\Bluetooth_Music\project\Bluetooth_Music.uvprojx
+Project File Date:  03/25/2026
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\keil536\ARM\ARMCC\Bin'
+Build target 'Target 1'
+compiling mp3.c...
+compiling bsp_dma.c...
+..\user\bsp_dma.c(62): warning:  #177-D: variable "DMA_InitStructure"  was declared but never referenced
+  	DMA_InitTypeDef DMA_InitStructure;
+..\user\bsp_dma.c(63): warning:  #177-D: variable "pxHigherPriorityTaskWoken"  was declared but never referenced
+  	BaseType_t pxHigherPriorityTaskWoken;
+..\user\bsp_dma.c(64): warning:  #177-D: variable "xReturn"  was declared but never referenced
+  	BaseType_t xReturn = pdPASS;
+..\user\bsp_dma.c: 3 warnings, 0 errors
+compiling bsp_uart.c...
+..\user\bsp_uart.c(18): warning:  #177-D: variable "NVIC_InitStructure"  was declared but never referenced
+  	NVIC_InitTypeDef NVIC_InitStructure;
+..\user\bsp_uart.c: 1 warning, 0 errors
+compiling stm32f10x_it.c...
+compiling main_freertos.c...
+..\user\main_freertos.c(260): warning:  #167-D: argument of type "volatile uint8_t *" is incompatible with parameter of type "uint8_t *"
+  					vs1053_send_music_data(&mp3_arry3[r_index], 32);	//uint: 2byte, 16*2
+..\user\main_freertos.c(209): warning:  #177-D: variable "xReturn"  was declared but never referenced
+  	BaseType_t xReturn = pdPASS;
+..\user\main_freertos.c(211): warning:  #177-D: variable "retry"  was declared but never referenced
+  	uint8_t retry = 0;
+..\user\main_freertos.c(212): warning:  #177-D: variable "num"  was declared but never referenced
+  	uint32_t num = 0;
+..\user\main_freertos.c(213): warning:  #177-D: variable "end_fill_byte"  was declared but never referenced
+  	uint16_t end_fill_byte = 0;
+..\user\main_freertos.c(214): warning:  #177-D: variable "temp"  was declared but never referenced
+  	uint16_t temp = 0;
+..\user\main_freertos.c(215): warning:  #177-D: variable "buf_init"  was declared but never referenced
+  	uint8_t buf_init[32];
+..\user\main_freertos.c(547): warning:  #128-D: loop is not reachable
+  		while (1)
+..\user\main_freertos.c: 8 warnings, 0 errors
+linking...
+Program Size: Code=11312 RO-data=336 RW-data=180 ZI-data=65284  
+FromELF: creating hex file...
+".\Objects\Bluetooth_Music.axf" - 0 Error(s), 12 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32F1xx_DFP.2.4.1.pack
+                Keil.STM32F1xx_DFP.2.4.1
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  D:\arm\packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:03
+</pre>
+</body>
+</html>

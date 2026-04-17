@@ -30,6 +30,7 @@
 #include "semphr.h"
 #include "bsp_uart.h"
 #include "bsp_dma.h"
+#include "bsp_sdio_sdcard.h"
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
   */
@@ -196,6 +197,27 @@ void DEBUG_DMA_IRQHandler(void)
 
 	/* 退出临界段 */
 	taskEXIT_CRITICAL_FROM_ISR( ulReturn );
+}
+
+/*
+ * 函数名：SDIO_IRQHandler
+ * 描述  ：在SDIO_ITConfig(）这个函数开启了sdio中断	，
+ *		     数据传输结束时产生中断
+ * 输入  ：无		 
+ * 输出  ：无
+ */
+void SDIO_IRQHandler(void) 
+{
+  uint32_t ulReturn;
+  
+  /* 进入临界段，临界段可以嵌套 */
+  ulReturn = taskENTER_CRITICAL_FROM_ISR();
+  
+  /* Process All SDIO Interrupt Sources */
+  SD_ProcessIRQSrc();
+  
+  /* 退出临界段 */
+  taskEXIT_CRITICAL_FROM_ISR( ulReturn );
 }
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

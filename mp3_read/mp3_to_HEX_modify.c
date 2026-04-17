@@ -75,8 +75,16 @@ unsigned char* readFile(const char* filename, size_t* size) {
 }
 
 
+// void binaryToHex(const unsigned char* data, size_t size, char* output) {
+//     for (size_t i = 0; i < size; ++i) {
+//         sprintf(output + i * 2, "%02X", data[i]);
+//     }
+//     output[size * 2] = '\0'; // Null-terminate the string
+// }
+
+
 void binaryToHex(const unsigned char* data, size_t size, char* output) {
-    for (size_t i = 0; i < size; ++i)
+	for (size_t i = 0; i < size; ++i)
 	{
 		if(i==0)
 		{}
@@ -88,8 +96,27 @@ void binaryToHex(const unsigned char* data, size_t size, char* output) {
 			j++;
 		}
 
-        sprintf(output + i * 2 + j, "%02X", data[i]);
+		sprintf(output + i * 2 + j, "%02X", data[i]);
 
-    }
-    output[size * 2] = '\0'; // Null-terminate the string
+	}
+	output[size * 2] = '\0'; // Null-terminate the string
 }
+
+
+
+// void byteToHex(char *hexStr, unsigned char byte)
+// {
+// 	static const char *hex = "0123456789ABCDEF";
+// 	hexStr[0] = hex[byte >> 4];  // 高4位
+// 	hexStr[1] = hex[byte & 0x0F]; // 低4位
+// }
+// static void bytesToHexArray(unsigned char *src, int srcLen, unsigned char *dest)
+// {
+// 	int i;
+// 	for (i = 0; i < srcLen; i++) {
+// 		byteToHex((char *)(dest + i * 2), src[i]); // 注意这里需要强制类型转换
+
+// 		printf("%X", dest[i*2]);
+// 	}
+
+// }

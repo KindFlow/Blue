@@ -9,7 +9,7 @@
 #define DEBUG_USART_IRQ					USART1_IRQn
 #define DEBUG_USART_IRQHandler			USART1_IRQHandler
 
-#define USART1_READ_BUFF_SIZE			54272//27008	//18048
+#define USART1_READ_BUFF_SIZE			1024//54272//27008	//18048
 
 void uart1_init(uint32_t bound);
 

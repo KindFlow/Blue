@@ -11,9 +11,9 @@ const uint8_t mp3_arry2[] = {
 
 
 
-uint8_t volatile mp3_arry3[MP3_BUFF_NUM] = {0};
-// uint8_t volatile mp3_arry4[MP3_BUFF_NUM] = {0};
-// uint8_t volatile mp3_arry5[MP3_BUFF_NUM] = {0};
+uint8_t mp3_arry3[MP3_BUFF_NUM] = {0};
+// uint8_t mp3_arry4[MP3_BUFF_NUM] = {0};
+// uint8_t mp3_arry5[MP3_BUFF_NUM] = {0};
 
 uint8_t mp3_arry6[30] = {0};
 

@@ -49,6 +49,8 @@
 #include "bsp_uart.h"
 #include "mp3.h"
 #include "bsp_dma.h"
+#include "bsp_sdio_sdcard.h"
+#include "config.h"
 /* Driver header files */
 // #include <ti/drivers/Board.h>
 // #include <ti/drivers/GPIO.h>
@@ -109,16 +111,17 @@ int main(void)
 
 void Board_init(void)
 {
+
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 
 	gpio_init();
 	// GPIO_SetBits(GPIOB,GPIO_Pin_5);
-	vs1053_init();
 	
-	// uart1_init(115200);
+	vs1053_init();
+	uart1_init(115200);
 	// uart1_init(128000);
 	// uart1_init(230400);
-	uart1_init(256000);
+	// uart1_init(256000);
 	// uart1_init(460800);
 	// uart1_init(500000);
 #if (UART_Feedback_EN == 1)
@@ -126,6 +129,7 @@ void Board_init(void)
 #endif
 	// spi_DMA_init();
 	uart1_DMA1_init();
+
 }
 
 void AppTaskCreate(void)
@@ -154,7 +158,7 @@ if (xReturn != pdPASS)
 
 xReturn = xTaskCreate((TaskFunction_t	) MP3_Play_Task,	// pvTaskCode
 				(const char *		)"MP3_Play_Task",	// pcName
-				(uint16_t			)128,				// usStackDepth
+				(uint16_t			)2048,				// usStackDepth
 				(void *				)NULL,				// pvParameters
 				(UBaseType_t		)3,					// uxPriority
 				(TaskHandle_t *		)&MP3_Task_Handle_t); // pxCreatedTask
@@ -215,6 +219,17 @@ void MP3_Play_Task(void)
 	uint8_t buf_init[32];
 	volatile uint8_t read_squeue = 0;
 
+#if 0
+	SD_Error errorstatus = SD_OK;
+	errorstatus = SD_Init();
+	if (errorstatus == SD_OK)
+	{
+		printf("SD card all setting is successful!\n\rEnter 4 wire mode!\n\r");
+	}
+	while(1);
+#endif
+
+
 	if (VS1053_DREQ == 1)
 		printf("vs1053 need init!\n");
 	printf("hardware init start\n");
@@ -224,23 +239,30 @@ void MP3_Play_Task(void)
 	
 	vs1053_soft_reset();
 
-
-
-
 	printf("setting volume!\n");
 	// vs1053_write_cmd(SPI_VOL, 0x7f7f);	// low
 	vs1053_write_cmd(SPI_VOL, 0x3f3f);	//middle
 	vs1053_read_reg(SPI_VOL);
 
+#if (SD_CARD_EN == 1)
+	FileSystem_Init();
+	FileSystem_Test();
+	while (1)
+		;
+#endif
+
 	// vs1053_write_cmd(SPI_WRAMADDR, 0x1e04);	//play speed
 	// temp = vs1053_read_reg(SPI_WRAM);
 	// printf("play speed: %d\n", temp);
 
+#if (SD_CARD_EN == 0)
 	DMA_Cmd (DEBUG_DMAx,ENABLE);
 	mp3_arry3[MP3_BUFF_NUM-1] = 0x0E;	//E for empty
 	// mp3_arry4[MP3_BUFF_NUM-1] = 0x0E;	//E for empty
 	// mp3_arry5[MP3_BUFF_NUM-1] = 0x0E;
+#endif
 
+#if (SD_CARD_EN == 0)
 	while(1)
 	{
 /* SPI send data */
@@ -384,7 +406,7 @@ void MP3_Play_Task(void)
 
 	}
 
-
+#endif
 
 	/*SPI Sine test*/
 	// vs1053_write_cmd(SPI_AUDATA,0xBB81);
@@ -430,89 +452,7 @@ void MP3_Play_Task(void)
 
 
 	// vs1053b_stop();
-#if 0
-	{
-		num = 0;
-		// printf("mp3 file num in total: [%d]\n",(sizeof(mp3_arry2)));
 
-		do
-		{
-			/* last piece*/
-			if (num+32 >= 165032 )	//sizeof is 2* (mp3_arry len)
-			{
-				// vs1053_send_music_data(&mp3_arry[num], (sizeof(mp3_arry)>>1) - (num<<4));
-				printf("finish!\n");
-				break;
-			}
-			/* last piece*/
-
-			vs1053_send_music_data(&mp3_arry[num],32);
-			// printf("send [%d]\n",num);
-			num += 32;
-		} while (1);
-		
-		printf("send mp3 finished!\n");
-		while(1);
-#if 0
-		vs1053_write_cmd(SPI_WRAMADDR, 0x1e06);
-		temp = vs1053_read_reg(SPI_WRAM);
-		for (i = 0; i < 65; i++)
-		{
-			memset(buf_init, temp & 0xFF, sizeof(uint8_t) * 32);           /* init */
-			vs1053b_dat_write(buf_init, 32);
-		}
-
-		temp = vs1053_read_reg(SPI_MODE);
-		temp |= 1 << 3;						/* set the SM_CANCEL */
-		vs1053_write_cmd(SPI_MODE, temp);
-
-		for (i = 0; i < 64; i++)
-		{
-			end_fill_byte_send(0x00, 1);
-			temp = vs1053_read_reg(SPI_MODE);
-			if ((temp & (1 << 3)) == 0)
-			{
-				break;
-			}
-		}
-
-
-		temp = vs1053_read_reg(SPI_HDAT0);
-		if (temp != 0)
-		{
-			printf("dat0 and dat1 ara invalid.\n");
-		}
-		temp = vs1053_read_reg(SPI_HDAT1);
-		if (temp != 0)
-		{
-			printf("dat0 and dat1 ara invalid.\n");
-		}
-#elif 0
-		vs1053_write_cmd(SPI_WRAMADDR, 0x1e06);
-		end_fill_byte = vs1053_read_reg(SPI_WRAM);
-		end_fill_byte_send(end_fill_byte, 65);
-		vs1053_write_cmd(SPI_MODE, 0x0808);
-
-		end_fill_byte = vs1053_read_reg(SPI_WRAM);
-		do
-		{
-			end_fill_byte_send(end_fill_byte, 2);
-			vTaskDelay(1500);
-			// vs1053_send_music_data(mp3_test, 16);
-			
-			temp = vs1053_read_reg(SPI_MODE);
-
-			vs1053_read_reg(SPI_VOL);	//test
-
-		} while (temp != 0x0800);
-#endif
-
-	}
-#endif
-
-
-	// vs1053_mode = vs1053_read_reg(SPI_MODE);
-	// vs1053_send_music_data(music_data, MUSIC_DATA_LEN);
 }
 
 #if (UART_Feedback_EN == 1)

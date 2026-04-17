@@ -52,7 +52,7 @@
 #define configTICK_RATE_HZ			( ( TickType_t ) 1000 )	//1ms
 #define configMAX_PRIORITIES		( 32 )
 #define configMINIMAL_STACK_SIZE	( ( unsigned short ) 128 )	//word, it's ok for setting 32
-#define configTOTAL_HEAP_SIZE		( ( size_t ) ( 6 * 1024 ) )	//( ( size_t ) ( 17 * 1024 ) )
+#define configTOTAL_HEAP_SIZE		( ( size_t ) ( 17 * 1024 ) )	//( ( size_t ) ( 17 * 1024 ) )
 #define configMAX_TASK_NAME_LEN		( 16 )
 #define configUSE_TRACE_FACILITY	0
 #define configUSE_16_BIT_TICKS		0	// 32bit unsigned int for TICKS count
@@ -80,7 +80,7 @@
 
 
 /* Constants that build features in or out. */
-#define configUSE_MUTEXES 				0
+#define configUSE_MUTEXES 				1
 #define configUSE_TICKLESS_IDLE			0
 // #define configUSE_APPLICATION_TASK_TAG 1 /* Needed by POSIX/pthread */
 // #define configUSE_CO_ROUTINES 0

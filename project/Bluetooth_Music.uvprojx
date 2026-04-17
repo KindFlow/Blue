@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\freertos\port\include;..\freertos\port\RVDS;..\user;..\STM32F10x_StdPeriph_Driver\inc;..\CMSIS</IncludePath>
+              <IncludePath>..\freertos\port\include;..\freertos\port\RVDS;..\user;..\STM32F10x_StdPeriph_Driver\inc;..\CMSIS;..\user\FATFS</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -462,6 +462,16 @@
               <FileName>mp3.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\user\mp3.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_sdio_sdcard.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\user\bsp_sdio_sdcard.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_sdio_sdcard.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\user\bsp_sdio_sdcard.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -608,6 +618,16 @@
               <FileType>1</FileType>
               <FilePath>..\STM32F10x_StdPeriph_Driver\src\stm32f10x_dma.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f10x_sdio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_sdio.h</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_sdio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32F10x_StdPeriph_Driver\src\stm32f10x_sdio.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -637,6 +657,26 @@
               <FileName>queue.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\FreeRTOS\port\include\queue.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FATFS</GroupName>
+          <Files>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\user\FATFS\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>ff.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\user\FATFS\ff.c</FilePath>
+            </File>
+            <File>
+              <FileName>syscall.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\user\FATFS\option\syscall.c</FilePath>
             </File>
           </Files>
         </Group>

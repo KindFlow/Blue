@@ -35,15 +35,15 @@ void vs1053_init(void)
 
 
 	/****test code start******/
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;  //test  PB13 推挽 
-	GPIO_Init(GPIOB, &GPIO_InitStructure);	//test   clk
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;	//PB13 推挽 
+	GPIO_Init(GPIOB, &GPIO_InitStructure);	//   clk
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;  //test  PB15 推挽 
-	GPIO_Init(GPIOB, &GPIO_InitStructure);	//test   MOSI
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;	//  PB15 推挽 
+	GPIO_Init(GPIOB, &GPIO_InitStructure);	//   MOSI
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14;  //test  PB14 推挽 
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14;	//PB14 推挽 
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;//浮空输入
-	GPIO_Init(GPIOB, &GPIO_InitStructure);	//test   MISO
+	GPIO_Init(GPIOB, &GPIO_InitStructure);	//MISO
 	/*test code end*/
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;	//PD12
@@ -271,7 +271,7 @@ uint8_t vs1053_send_music_data(uint8_t *p_data,uint16_t len)
 	retry=0;
 	while(VS1053_DREQ == 0 && retry < 10)
 	{
-		vTaskDelay(6);
+		vTaskDelay(3);	//vTaskDelay(2);
 		retry++;
 	}
 	if (retry == 20)
